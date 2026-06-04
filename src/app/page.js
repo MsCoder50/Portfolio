@@ -1,30 +1,41 @@
-'use client';
+"use client"
 
-import React from "react";
-import Head from "next/head";
-import { motion } from "framer-motion";
-import Navbar from "../../components/Navbar";
-import Hero from "../../components/Hero";
-import Projects from "../../components/Projects";
-import Skills from "../../components/Skills";
-import Experience from "../../components/Experience";
-import Contact from "../../components/Contact";
+import { useEffect } from "react"
+import Navbar from "@/components/navbar"
+import Hero from "@/components/hero"
+import Projects from "@/components/projects"
+import Skills from "@/components/skills"
+import Experience from "@/components/experience"
+import Contact from "@/components/contact"
+import Footer from "@/components/footer"
 
 export default function Home() {
-  return (
-    <div className="bg-black text-white min-h-screen flex flex-col items-center">
-      <Head>
-        <title>Mohammad Saad | Portfolio</title>
-        <meta name="description" content="Professional portfolio of Mohammad Saad, showcasing projects, skills, and experience in web development and robotics." />
-      </Head>
-      
-      <Navbar />
-      <Hero />
-      <Projects />
-      <Skills />
-      <Experience />
-      <Contact />
+  useEffect(() => {
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+      anchor.addEventListener("click", function (e) {
+        e.preventDefault()
+        const targetId = this.getAttribute("href")
+        if (targetId) {
+          document.querySelector(targetId)?.scrollIntoView({
+            behavior: "smooth",
+          })
+        }
+      })
+    })
+  }, [])
 
+  return (
+    <div className="flex flex-col min-h-screen bg-background text-foreground">
+      <Navbar />
+      <main className="flex-grow">
+        <Hero />
+        <Projects />
+        <Skills />
+        <Experience />
+        <Contact />
+      </main>
+      <Footer />
     </div>
-  );
+  )
 }
